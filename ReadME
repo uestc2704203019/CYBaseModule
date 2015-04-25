@@ -1,0 +1,2 @@
+支持使用cocoapods，由于是私有库，路径如下
+pod 'CYBaseModule', :git => 'https://github.com/uestc2704203019/CYBaseModule'
