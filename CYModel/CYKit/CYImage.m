@@ -10,4 +10,11 @@
 
 @implementation CYImage
 
++ (UIImage *)imageNamed:(NSString *)name
+{
+    return [super imageNamed:name];
+}
+
+
+
 @end

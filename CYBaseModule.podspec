@@ -39,6 +39,9 @@ Pod::Spec.new do |s|
     ss.subspec 'CYKit' do |sss|
         sss.source_files = "CYModel/CYKit/*.{h,m}"
     end
+    ss.subspec 'CYNotification' do |sss|
+        sss.source_files = "CYModel/CYNotification/*.{h,m}"
+    end
   end
 
   s.subspec 'CYController' do |ss|
