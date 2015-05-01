@@ -28,15 +28,18 @@ Pod::Spec.new do |s|
   s.source_files  = "ReadME"
 
   s.subspec 'view' do |ss|
-    ss.source_files = "view/*.{h,m}","view/**/*.{h,m}"
+    ss.source_files = "view/*.{h,m}"
   end
 
   s.subspec 'model' do |ss|
-    ss.source_files = "model/*.{h,m}","model/**/*.{h,m}"
+    ss.source_files = "model/*.{h,m}"
+    ss.subspec 'function' do |sss|
+        sss.source_files = "model/function/*.{h,m}"
+    end
   end
 
   s.subspec 'controller' do |ss|
-    ss.source_files = "controller/*.{h,m}","controller/**/*.{h,m}"
+    ss.source_files = "controller/*.{h,m}"
   end
 
   s.frameworks = 'UIKit'
