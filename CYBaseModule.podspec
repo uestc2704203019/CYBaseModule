@@ -25,8 +25,20 @@ Pod::Spec.new do |s|
 
   s.source       = { :git => "https://github.com/uestc2704203019/CYBaseModule.git",:tag => "0.0.1"}
 
-  s.source_files  = "**/**"
+  s.source_files  = "**"
 
-  s.frameworks = 'UIKit'  
+  s.subspec 'view' do |ss|
+    ss.source_files = "view/*.{h,m}","view/**/*.{h,m}"
+  end
+
+  s.subspec 'model' do |ss|
+    ss.source_files = "model/*.{h,m}","model/**/*.{h,m}"
+  end
+
+  s.subspec 'controller' do |ss|
+    ss.source_files = "controller/*.{h,m}","controller/**/*.{h,m}"
+  end
+
+  s.frameworks = 'UIKit'
 
 end
