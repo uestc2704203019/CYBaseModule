@@ -25,7 +25,7 @@ Pod::Spec.new do |s|
 
   s.source       = { :git => "https://github.com/uestc2704203019/CYBaseModule.git",:tag => "0.0.1"}
 
-  s.source_files  = "**"
+  s.source_files  = "ReadME"
 
   s.subspec 'view' do |ss|
     ss.source_files = "view/*.{h,m}","view/**/*.{h,m}"
