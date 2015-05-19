@@ -77,6 +77,7 @@
     return [UIColor colorWithRed:red/255.0f green:green/255.0f blue:blue/255.0 alpha:alpha];
 }
 
+/*16进制转化10进制*/
 + (int)hexNumber:(NSString *)hexStr
 {
     if ([hexStr isEqualToString:@"f"]) {
@@ -99,5 +100,18 @@
     }
     return [hexStr intValue];
 }
+
+/**
+ *
+ *  @description 判断传入字符串是否为手机号码
+ *
+ */
++ (BOOL)checkNumberIsPhoneNumber:(NSString *)number
+{
+    NSString *mobileRegex = @"^1(3[0-9]|5[0-35-9]|7[05-8]|8[025-9])d{8}$";
+    NSPredicate *mobilePredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",mobileRegex];
+    return [mobilePredicate evaluateWithObject:mobileRegex];
+}
+
 
 @end
