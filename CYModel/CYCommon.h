@@ -6,7 +6,7 @@
 //  Copyright (c) 2015年 ly. All rights reserved.
 //
 
-#param mark =========字体及颜色的一些基本设定============
+#pragma mark =========字体及颜色的一些基本设定============
 
 //获取RGB颜色
 #define CYColor(r,g,b,a) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a]
@@ -24,7 +24,7 @@
 #define CYBoldSystemFont(s) [UIFont boldSystemFontOfSize:n]
 
 
-#parma mark ===========获取系统信息===========
+#pragma mark ===========获取系统信息===========
 
 //或取系统ios应用的版本号
 #define CYSystemVersion [UIDevice currentDevice].systemVersion.floatValue
