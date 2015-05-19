@@ -113,5 +113,15 @@
     return [mobilePredicate evaluateWithObject:mobileRegex];
 }
 
+/**
+ *
+ *  @description 根据约束条件获取字符串占用的size
+ *
+ *
+ */
++ (CGSize)sizeWithWidth:(float)width height:(float)height font:(UIFont *)font content:(NSString *)content
+{
+   return [content boundingRectWithSize:(CGSize){width,height} options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:font} context:nil].size;
+}
 
 @end
