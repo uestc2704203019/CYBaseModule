@@ -10,4 +10,6 @@
 
 @interface CYBaseViewController : UIViewController
 
+- (void)createUI;
+
 @end

@@ -16,8 +16,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [super performSelector:@selector(createUI) withObject:nil afterDelay:0.0f];
     // Do any additional setup after loading the view.
 }
+
+- (void)createUI
+{}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
