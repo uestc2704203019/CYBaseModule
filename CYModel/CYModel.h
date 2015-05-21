@@ -7,5 +7,6 @@
 //
 #import "CYMethod.h"
 #import "CYTipMethod.h"
+#import "NSString+URLEncode.h"
 
 

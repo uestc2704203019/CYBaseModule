@@ -1,19 +1,18 @@
 //
-//  CYString.m
+//  NSString+URLEncode.m
 //  CYBaseProject
 //
 //  Created by chai on 15-5-22.
 //  Copyright (c) 2015年 chai. All rights reserved.
 //
 
-#import "CYString.h"
+#import "NSString+URLEncode.h"
 
-@implementation CYString
+@implementation NSString (URLEncode)
 
 /**
  *
- *  @description 对字符串进行url encode 编码处理
- *
+ *  @description 将字符串进行url编码处理
  *
  */
 - (NSString *)urlEncode
@@ -29,8 +28,7 @@
 
 /**
  *
- *  @description 对字符串进行url decode 解码处理
- *
+ *  @description 将字符串进行url解码处理
  *
  */
 - (NSString *)urlDecode

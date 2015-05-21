@@ -29,6 +29,10 @@ Pod::Spec.new do |s|
 
   s.subspec 'CYView' do |ss|
     ss.source_files = "CYView/*.{h,m}"
+    ss.subspec 'CYExtension' do |sss|
+        sss.source_files = "CYModel/CYExtension/*.{h,m}"
+    end
+
   end
 
   s.subspec 'CYModel' do |ss|
@@ -41,6 +45,9 @@ Pod::Spec.new do |s|
     end
     ss.subspec 'CYNotification' do |sss|
         sss.source_files = "CYModel/CYNotification/*.{h,m}"
+    end
+    ss.subspec 'CYExtension' do |sss|
+        sss.source_files = "CYModel/CYExtension/*.{h,m}"
     end
   end
 
