@@ -6,5 +6,6 @@
 //  Copyright (c) 2015年 ly. All rights reserved.
 //
 #import "CYMethod.h"
+#import "CYTipMethod.h"
 
 

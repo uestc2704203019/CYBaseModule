@@ -110,7 +110,19 @@
 {
     NSString *mobileRegex = @"^1(3[0-9]|5[0-35-9]|7[05-8]|8[025-9])d{8}$";
     NSPredicate *mobilePredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",mobileRegex];
-    return [mobilePredicate evaluateWithObject:mobileRegex];
+    return [mobilePredicate evaluateWithObject:number];
+}
+
+/**
+ *
+ *  @decription 根据传入的正则表达式判断字符串是否满足要求
+ *
+ *
+ */
++ (BOOL)checkMatchRegex:(NSString *)regex checkStr:(NSString *)checkStr
+{
+    NSPredicate *checkPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",regex];
+    return [checkPredicate evaluateWithObject:checkStr];
 }
 
 /**
@@ -119,9 +131,12 @@
  *
  *
  */
-+ (CGSize)sizeWithWidth:(float)width height:(float)height font:(UIFont *)font content:(NSString *)content
++ (CGSize)sizeWithWidth:(float)width height:(float)height font:(UIFont *)font content:(NSString *)content lineBreakMode:(NSLineBreakMode)lineBreakMode
 {
-   return [content boundingRectWithSize:(CGSize){width,height} options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:font} context:nil].size;
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.lineBreakMode = lineBreakMode;
+    CGRect contentRect = [content boundingRectWithSize:(CGSize){width,height} options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:font,NSParagraphStyleAttributeName:paragraphStyle} context:nil];
+    return contentRect.size;
 }
 
 @end

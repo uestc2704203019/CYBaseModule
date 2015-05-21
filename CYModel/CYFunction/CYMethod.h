@@ -22,12 +22,23 @@
  */
 + (BOOL)checkNumberIsPhoneNumber:(NSString *)number;
 
+
+/**
+ *
+ *  @decription 根据传入的正则表达式判断字符串是否满足要求
+ *
+ *
+ */
++ (BOOL)checkMatchRegex:(NSString *)regex checkStr:(NSString *)checkStr;
+
+#pragma mark 数据处理方法
+
 /**
  *
  *  @description 根据约束条件获取字符串占用的size
  *
  *
  */
-+ (CGSize)sizeWithWidth:(float)width height:(float)height font:(UIFont *)font content:(NSString *)content;
++ (CGSize)sizeWithWidth:(float)width height:(float)height font:(UIFont *)font content:(NSString *)content lineBreakMode:(NSLineBreakMode)lineBreakMode;
 
 @end
