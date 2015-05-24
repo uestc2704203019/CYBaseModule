@@ -1,19 +1,20 @@
 //
-//  CYTextField.m
+//  CYLabel.m
 //  CYBaseProject
 //
-//  Created by chai on 15-5-21.
+//  Created by chai on 15-5-24.
 //  Copyright (c) 2015年 chai. All rights reserved.
 //
 
-#import "CYTextField.h"
+#import "CYLabel.h"
 
-@implementation CYTextField
+@implementation CYLabel
 
-+ (CYTextField *)textField
++ (CYLabel *)label
 {
-    CYTextField *textField = [[CYTextField alloc] init];
-    return textField;
+    CYLabel *label = [[CYLabel alloc] init];
+    label.backgroundColor = [UIColor clearColor];
+    return label;
 }
 
 /*

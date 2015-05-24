@@ -32,4 +32,8 @@
 //获取应用版本号
 #define CYSystem(n) CYSystemVersion>n?YES:NO
 
+//获取屏幕宽度
+#define CYScreenWidth [UIScreen mainScreen].bounds.size.width
 
+//获取屏幕高度
+#define CYScreenHeight [UIScreen mainScreen].bounds.size.height

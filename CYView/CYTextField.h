@@ -10,4 +10,6 @@
 
 @interface CYTextField : UITextField
 
++ (CYTextField *)textField;
+
 @end
