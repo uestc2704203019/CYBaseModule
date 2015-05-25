@@ -11,5 +11,6 @@
 @interface CYBaseViewController : UIViewController
 
 - (void)createUI;
+- (void)hiddenNavigationBackBarItem;
 
 @end

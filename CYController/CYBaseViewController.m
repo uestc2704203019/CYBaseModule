@@ -23,6 +23,14 @@
 - (void)createUI
 {}
 
+- (void)hiddenNavigationBackBarItem
+{
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] init];
+    backItem.title = @"";
+    backItem.image = nil;
+    self.navigationItem.backBarButtonItem = backItem;
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
