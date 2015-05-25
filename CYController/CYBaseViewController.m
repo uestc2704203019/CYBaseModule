@@ -29,6 +29,7 @@
     backItem.title = @"";
     backItem.image = nil;
     self.navigationItem.backBarButtonItem = backItem;
+    self.navigationItem.hidesBackButton = YES;
 }
 
 - (void)didReceiveMemoryWarning {
