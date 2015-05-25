@@ -21,7 +21,7 @@
 #define CYWeightFont(s,w) [UIFont systemFontOfSize:s weight:w]
 
 //获取粗体字体
-#define CYBoldSystemFont(s) [UIFont boldSystemFontOfSize:n]
+#define CYBoldSystemFont(s) [UIFont boldSystemFontOfSize:s]
 
 
 #pragma mark ===========获取系统信息===========
