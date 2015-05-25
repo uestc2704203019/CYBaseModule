@@ -8,5 +8,6 @@
 #import "CYMethod.h"
 #import "CYTipMethod.h"
 #import "NSString+URLEncode.h"
+#import "NSString+Size.h"
 
 
