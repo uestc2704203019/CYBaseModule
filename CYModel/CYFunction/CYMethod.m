@@ -125,18 +125,4 @@
     return [checkPredicate evaluateWithObject:checkStr];
 }
 
-/**
- *
- *  @description 根据约束条件获取字符串占用的size
- *
- *
- */
-+ (CGSize)sizeWithWidth:(float)width height:(float)height font:(UIFont *)font content:(NSString *)content lineBreakMode:(NSLineBreakMode)lineBreakMode
-{
-    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-    paragraphStyle.lineBreakMode = lineBreakMode;
-    CGRect contentRect = [content boundingRectWithSize:(CGSize){width,height} options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:font,NSParagraphStyleAttributeName:paragraphStyle} context:nil];
-    return contentRect.size;
-}
-
 @end

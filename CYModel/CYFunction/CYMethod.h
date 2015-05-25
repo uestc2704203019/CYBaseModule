@@ -33,12 +33,5 @@
 
 #pragma mark 数据处理方法
 
-/**
- *
- *  @description 根据约束条件获取字符串占用的size
- *
- *
- */
-+ (CGSize)sizeWithWidth:(float)width height:(float)height font:(UIFont *)font content:(NSString *)content lineBreakMode:(NSLineBreakMode)lineBreakMode;
 
 @end
