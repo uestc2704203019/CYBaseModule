@@ -19,6 +19,6 @@
  *  @param size 切割大小
  *
  */
-+ (UIImage *)resizeImageWith:(UIImage *)image fromPoint:(CGPoint)point getSize:(CGSize)size;
+- (UIImage *)resizeImageFromPoint:(CGPoint)point getSize:(CGSize)size;
 
 @end
