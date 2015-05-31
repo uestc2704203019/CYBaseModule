@@ -9,5 +9,6 @@
 #import "CYTipMethod.h"
 #import "NSString+URLEncode.h"
 #import "NSString+Size.h"
+#import "UIImage+Resize.h"
 
 
