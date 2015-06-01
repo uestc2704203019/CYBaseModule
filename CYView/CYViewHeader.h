@@ -8,3 +8,4 @@
 #import "CYTableView.h"
 #import "CYScrollView.h"
 #import "CYButton.h"
+#import "CYTableViewCell.h"
