@@ -9,3 +9,4 @@
 #import "CYScrollView.h"
 #import "CYButton.h"
 #import "CYTableViewCell.h"
+#import "CYSegmentedControl.h"
