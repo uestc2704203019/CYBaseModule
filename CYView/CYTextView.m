@@ -106,10 +106,14 @@
     }else{
         _tipLabel.hidden = NO;
     }
+    
     if (showText.length <= _numberLimit) {
         _numberLabel.text = [NSString stringWithFormat:@"%d",_numberLimit-(int)showText.length];
         return YES;
     }else{
+        if (_numberLimit==0) {
+            return YES;
+        }
         return NO;
     }
 }
