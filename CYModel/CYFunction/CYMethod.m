@@ -108,7 +108,7 @@
  */
 + (BOOL)checkNumberIsPhoneNumber:(NSString *)number
 {
-    NSString *mobileRegex = @"^1(3[0-9]|5[0-35-9]|7[05-8]|8[025-9])d{8}$";
+    NSString *mobileRegex = @"^1(3[0-9]|5[0-35-9]|7[05-8]|8[025-9])\\d{8}$";
     NSPredicate *mobilePredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",mobileRegex];
     return [mobilePredicate evaluateWithObject:number];
 }
