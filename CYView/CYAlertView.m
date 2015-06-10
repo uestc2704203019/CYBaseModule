@@ -28,6 +28,68 @@
     return self;
 }
 
+- (void)registerNotification
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardshow:) name:UIKeyboardWillShowNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardhidden:) name:UIKeyboardWillHideNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillChangeFrameNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardhidden:) name:UIKeyboardWillChangeFrameNotification object:nil];
+}
+
+- (void)resignNotification
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillChangeFrameNotification object:nil];
+}
+
+#pragma mark notification
+- (void)keyboardshow:(NSNotification *)notification
+{
+    NSDictionary *userInfo = [notification userInfo];
+    NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+    CGRect keyboardRect = [aValue CGRectValue];
+    int height = keyboardRect.size.height;
+    if (height>0) {
+        CGRect viewFrame = [UIScreen mainScreen].bounds;
+        viewFrame.size.height -= height;
+        self.frame = viewFrame;
+        self.contentView.center = self.center;
+    }
+}
+
+- (void)keyboardchanged:(NSNotification *)notification
+{
+    NSDictionary *userInfo = [notification userInfo];
+    NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+    CGRect keyboardRect = [aValue CGRectValue];
+    int height = keyboardRect.size.height;
+    if (height>0) {
+        CGRect viewFrame = [UIScreen mainScreen].bounds;
+        viewFrame.size.height -= height;
+        //        viewFrame.size.height += 64;
+        self.frame = viewFrame;
+        self.contentView.center = self.center;
+    }
+}
+
+- (void)keyboardhidden:(NSNotification *)notification
+{
+    NSDictionary *userInfo = [notification userInfo];
+    NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+    CGRect keyboardRect = [aValue CGRectValue];
+    int height = keyboardRect.size.height;
+    if (height>=0) {
+        CGRect viewFrame = [UIScreen mainScreen].bounds;
+        self.frame = viewFrame;
+        self.contentView.center = self.center;
+    }
+}
+
 - (void)setContentView:(UIView *)contentView
 {
     _contentView = contentView;
@@ -40,6 +102,8 @@
 
 - (void)show
 {
+    [self registerNotification];
+
     [[UIApplication sharedApplication].keyWindow addSubview:self];
     
     if (_isHaveAnimation) {
@@ -59,6 +123,8 @@
 
 - (void)hidden
 {
+    [self resignNotification];
+
     [self removeFromSuperview];
 
     CAKeyframeAnimation *hideAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
