@@ -24,9 +24,11 @@
     self = [super init];
     if (self) {
         self.frame = [UIScreen mainScreen].bounds;
+        self.backgroundColor = [UIColor colorWithWhite:0.8 alpha:0.4];
     }
     return self;
 }
+
 
 - (void)registerNotification
 {
@@ -90,6 +92,7 @@
     }
 }
 
+
 - (void)setContentView:(UIView *)contentView
 {
     _contentView = contentView;
@@ -97,13 +100,14 @@
     _contentView.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.9].CGColor;
     _contentView.layer.borderWidth = 1.0f;
     _contentView.center = self.center;
+    _contentView.backgroundColor = [UIColor whiteColor];
     [self addSubview:contentView];
 }
 
 - (void)show
 {
     [self registerNotification];
-
+    
     [[UIApplication sharedApplication].keyWindow addSubview:self];
     
     if (_isHaveAnimation) {
@@ -117,14 +121,14 @@
         popAnimation.timingFunctions = @[[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut],
                                          [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut],
                                          [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
-        [self.layer addAnimation:popAnimation forKey:nil];
+        [_contentView.layer addAnimation:popAnimation forKey:nil];
     }
 }
 
 - (void)hidden
 {
     [self resignNotification];
-
+    
     [self removeFromSuperview];
 
     CAKeyframeAnimation *hideAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
@@ -137,7 +141,7 @@
                                       [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut],
                                       [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
     hideAnimation.delegate = self;
-    [self.layer addAnimation:hideAnimation forKey:nil];
+    [_contentView.layer addAnimation:hideAnimation forKey:nil];
     
 }
 
