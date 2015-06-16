@@ -15,13 +15,28 @@
 + (UIColor *)hexColor:(NSString *)hexStr alpha:(float)alpha;
 
 #pragma mark 判断类型方法
+/***
+ *
+ *  @description 判断字符串是否包含中文
+ *
+ ***/
++ (BOOL)checkContainChiness:(NSString *)checkStr;
+
+/***
+ *
+ *
+ *  @description 判断字符串是否为纯数字
+ *
+ *
+ ***/
++ (BOOL)checkAllNumber:(NSString *)checkStr;
+
 /**
  *
  *  @description 判断传入字符串是否为手机号码
  *
  */
 + (BOOL)checkNumberIsPhoneNumber:(NSString *)number;
-
 
 /**
  *
@@ -32,6 +47,16 @@
 + (BOOL)checkMatchRegex:(NSString *)regex checkStr:(NSString *)checkStr;
 
 #pragma mark 数据处理方法
+
+#pragma mark 获取系统设备信息
+/***
+ *
+ *
+ *  @description 获取app的版本号
+ *
+ *
+ ***/
++ (NSString *)GetAppVersion;
 
 
 @end

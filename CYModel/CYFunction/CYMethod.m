@@ -101,6 +101,37 @@
     return [hexStr intValue];
 }
 
+/***
+ *
+ *  @description 判断字符串是否包含中文
+ *
+ ***/
++ (BOOL)checkContainChiness:(NSString *)checkStr
+{
+    for(int i=0; i< [checkStr length];i++){
+        int a = [checkStr characterAtIndex:i];
+        if( a > 0x4e00 && a < 0x9fff)
+            return YES;
+    }
+    return NO;
+}
+
+/***
+ *
+ *
+ *  @description 判断字符串是否为纯数字
+ *
+ *
+ ***/
++ (BOOL)checkAllNumber:(NSString *)checkStr
+{
+    NSString *subStr = [checkStr stringByTrimmingCharactersInSet:[NSCharacterSet decimalDigitCharacterSet]];
+    if (subStr.length>0) {
+        return YES;
+    }
+    return NO;
+}
+
 /**
  *
  *  @description 判断传入字符串是否为手机号码
@@ -108,7 +139,7 @@
  */
 + (BOOL)checkNumberIsPhoneNumber:(NSString *)number
 {
-    NSString *mobileRegex = @"^1(3[0-9]|5[0-35-9]|7[05-8]|8[025-9])\\d{8}$";
+    NSString *mobileRegex = @"^1\\d{10}$";
     NSPredicate *mobilePredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",mobileRegex];
     return [mobilePredicate evaluateWithObject:number];
 }
@@ -123,6 +154,19 @@
 {
     NSPredicate *checkPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",regex];
     return [checkPredicate evaluateWithObject:checkStr];
+}
+
+#pragma mark 获取系统设备信息
+/***
+ *
+ *
+ *  @description 获取app的版本号
+ *
+ *
+ ***/
++ (NSString *)GetAppVersion
+{
+    return [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString*)kCFBundleVersionKey];
 }
 
 @end
