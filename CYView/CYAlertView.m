@@ -24,74 +24,9 @@
     self = [super init];
     if (self) {
         self.frame = [UIScreen mainScreen].bounds;
-        self.backgroundColor = [UIColor colorWithWhite:0.8 alpha:0.4];
     }
     return self;
 }
-
-
-- (void)registerNotification
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardshow:) name:UIKeyboardWillShowNotification object:nil];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardhidden:) name:UIKeyboardWillHideNotification object:nil];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillChangeFrameNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardhidden:) name:UIKeyboardWillChangeFrameNotification object:nil];
-}
-
-- (void)resignNotification
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillChangeFrameNotification object:nil];
-}
-
-#pragma mark notification
-- (void)keyboardshow:(NSNotification *)notification
-{
-    NSDictionary *userInfo = [notification userInfo];
-    NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
-    CGRect keyboardRect = [aValue CGRectValue];
-    int height = keyboardRect.size.height;
-    if (height>0) {
-        CGRect viewFrame = [UIScreen mainScreen].bounds;
-        viewFrame.size.height -= height;
-        self.frame = viewFrame;
-        self.contentView.center = self.center;
-    }
-}
-
-- (void)keyboardchanged:(NSNotification *)notification
-{
-    NSDictionary *userInfo = [notification userInfo];
-    NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
-    CGRect keyboardRect = [aValue CGRectValue];
-    int height = keyboardRect.size.height;
-    if (height>0) {
-        CGRect viewFrame = [UIScreen mainScreen].bounds;
-        viewFrame.size.height -= height;
-        //        viewFrame.size.height += 64;
-        self.frame = viewFrame;
-        self.contentView.center = self.center;
-    }
-}
-
-- (void)keyboardhidden:(NSNotification *)notification
-{
-    NSDictionary *userInfo = [notification userInfo];
-    NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
-    CGRect keyboardRect = [aValue CGRectValue];
-    int height = keyboardRect.size.height;
-    if (height>=0) {
-        CGRect viewFrame = [UIScreen mainScreen].bounds;
-        self.frame = viewFrame;
-        self.contentView.center = self.center;
-    }
-}
-
 
 - (void)setContentView:(UIView *)contentView
 {
@@ -100,14 +35,11 @@
     _contentView.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.9].CGColor;
     _contentView.layer.borderWidth = 1.0f;
     _contentView.center = self.center;
-    _contentView.backgroundColor = [UIColor whiteColor];
     [self addSubview:contentView];
 }
 
 - (void)show
 {
-    [self registerNotification];
-    
     [[UIApplication sharedApplication].keyWindow addSubview:self];
     
     if (_isHaveAnimation) {
@@ -121,14 +53,12 @@
         popAnimation.timingFunctions = @[[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut],
                                          [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut],
                                          [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
-        [_contentView.layer addAnimation:popAnimation forKey:nil];
+        [self.layer addAnimation:popAnimation forKey:nil];
     }
 }
 
 - (void)hidden
 {
-    [self resignNotification];
-    
     [self removeFromSuperview];
 
     CAKeyframeAnimation *hideAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
@@ -141,7 +71,7 @@
                                       [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut],
                                       [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
     hideAnimation.delegate = self;
-    [_contentView.layer addAnimation:hideAnimation forKey:nil];
+    [self.layer addAnimation:hideAnimation forKey:nil];
     
 }
 
