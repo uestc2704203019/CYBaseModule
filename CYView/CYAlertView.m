@@ -101,7 +101,9 @@
     _contentView.layer.borderWidth = 1.0f;
     _contentView.center = self.center;
     _contentView.backgroundColor = [UIColor whiteColor];
-    [self addSubview:contentView];
+    if (![self.subviews containsObject:_contentView]) {
+        [self addSubview:contentView];
+    }
 }
 
 - (void)show
@@ -129,6 +131,7 @@
 {
     [self resignNotification];
     
+    [_contentView removeFromSuperview];
     [self removeFromSuperview];
 
     CAKeyframeAnimation *hideAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];

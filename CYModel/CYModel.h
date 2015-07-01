@@ -11,5 +11,6 @@
 #import "NSString+Size.h"
 #import "NSString+Hash.h"
 #import "UIImage+Resize.h"
+#import "NSString+Base64.h"
 
 

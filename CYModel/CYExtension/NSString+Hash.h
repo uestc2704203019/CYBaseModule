@@ -17,4 +17,11 @@
  ***/
 - (NSString *)md5Encrypt;
 
+/**
+ *
+ *  @description 16位md5加密
+ *
+ **/
+- (NSString *)bitMD5Encrypt;
+
 @end

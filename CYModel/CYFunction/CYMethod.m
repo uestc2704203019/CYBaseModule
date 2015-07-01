@@ -127,9 +127,9 @@
 {
     NSString *subStr = [checkStr stringByTrimmingCharactersInSet:[NSCharacterSet decimalDigitCharacterSet]];
     if (subStr.length>0) {
-        return YES;
+        return NO;
     }
-    return NO;
+    return YES;
 }
 
 /**

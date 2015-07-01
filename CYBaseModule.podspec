@@ -48,6 +48,7 @@ Pod::Spec.new do |s|
     end
     ss.subspec 'CYExtension' do |sss|
         sss.source_files = "CYModel/CYExtension/*.{h,m}"
+        sss.frameworks='CommonCrypto'
     end
   end
 
