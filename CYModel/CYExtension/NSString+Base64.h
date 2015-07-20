@@ -24,4 +24,14 @@
  **/
 - (NSString *)base64Decode;
 
+/**
+ *
+ *  @!brief base64value decode
+ *
+ **/
+- (NSString *)base64ValueDecode;
+
+- (Byte *)transToHex;
+- (int)hexTrans;
+
 @end

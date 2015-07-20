@@ -7,6 +7,7 @@
 //
 
 #import "NSString+Base64.h"
+#import "GTMBase64/GTMBase64.h"
 //空字符串
 #import <CommonCrypto/CommonCryptor.h>
 
@@ -25,10 +26,10 @@ static const char encodingTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopq
 {
     if (self && ![self isEqualToString:LocalStr_None]) {
         //取项目的bundleIdentifier作为KEY
-        NSString *key = [[NSBundle mainBundle] bundleIdentifier];
-        NSData *data = [self dataUsingEncoding:NSUTF8StringEncoding];
+        NSStringEncoding encode = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
+        NSData *data = [self dataUsingEncoding:encode];
         //IOS 自带DES加密 Begin
-        data = [NSString DESEncrypt:data WithKey:key];
+//        data = [NSString DESEncrypt:data WithKey:key];
         //IOS 自带DES加密 End
         return [NSString base64EncodedStringFrom:data];
     }
@@ -46,16 +47,74 @@ static const char encodingTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopq
 {
     if (self && ![self isEqualToString:LocalStr_None]) {
         //取项目的bundleIdentifier作为KEY
-        NSString *key = [[NSBundle mainBundle] bundleIdentifier];
         NSData *data = [NSString dataWithBase64EncodedString:self];
         //IOS 自带DES解密 Begin
-        data = [NSString DESDecrypt:data WithKey:key];
+//        data = [NSString DESDecrypt:data WithKey:key];
         //IOS 自带DES加密 End
-        return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        Byte *bytes = (Byte *)[data bytes];
+        NSStringEncoding encode = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
+        NSString *tempStr = [[NSString alloc] initWithBytes:bytes length:sizeof(bytes) encoding:encode];
+        NSString *hexStr=@"";
+        for(int i=0;i<[data length];i++)
+        {
+            NSString *newHexStr = [NSString stringWithFormat:@"%x",bytes[i]&0xff];///16进制数
+            if([newHexStr length]==1)
+                hexStr = [NSString stringWithFormat:@"%@0%@",hexStr,newHexStr];
+            else
+                hexStr = [NSString stringWithFormat:@"%@%@",hexStr,newHexStr];
+        }
+        return hexStr;
     }
     else {
         return LocalStr_None;
     }
+}
+
+/**
+ *
+ *  @!brief base64value decode
+ *
+ **/
+- (NSString *)base64ValueDecode
+{
+    if (self && ![self isEqualToString:LocalStr_None]) {
+        //取项目的bundleIdentifier作为KEY
+        NSData *data = [GTMBase64 decodeString:self];//[NSString dataWithBase64EncodedString:self];
+        //IOS 自带DES解密 Begin
+        //        data = [NSString DESDecrypt:data WithKey:key];
+        //IOS 自带DES加密 End
+        Byte *bytes = (Byte *)[data bytes];
+        NSStringEncoding encode = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
+        NSString *hexStr = [[NSString alloc] initWithBytes:bytes length:sizeof(bytes) encoding:encode];
+        return hexStr;
+    }
+    else {
+        return LocalStr_None;
+    }
+
+}
+
+- (Byte *)transToHex
+{
+    NSStringEncoding encode = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
+    NSData *data = [self dataUsingEncoding:encode];
+    Byte *bytes = (Byte *)[data bytes];
+    return bytes;
+}
+
+- (int)hexTrans
+{
+    unsigned long number = strtoul([self UTF8String], 0, 16);
+    return (int)number;
+//    [self capitalizedString];
+//    int int_ch;
+//    unichar hex_char1 = [self characterAtIndex:0];
+//    int int_ch1;
+//    if (hex_char1>='0'&&hex_char1<='9') {
+//        int_ch1 = (hex_char1-48)*16;
+//    }else if (hex_char1>='A'&&hex_char1<='F'){
+//        int_ch1 =
+//    }
 }
 
 /******************************************************************************
@@ -159,8 +218,9 @@ static const char encodingTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopq
         for (i = 0; i < 64; i++)
             decodingTable[(short)encodingTable[i]] = i;
     }
-    
-    const char *characters = [string cStringUsingEncoding:NSASCIIStringEncoding];
+    NSStringEncoding encode = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
+
+    const char *characters = [string cStringUsingEncoding:encode];
     if (characters == NULL)     //  Not an ASCII string!
         return nil;
     char *bytes = malloc((([string length] + 3) / 4) * 3);
@@ -243,8 +303,9 @@ static const char encodingTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopq
             characters[length++] = encodingTable[buffer[2] & 0x3F];
         else characters[length++] = '=';
     }
-    
-    return [[NSString alloc] initWithBytesNoCopy:characters length:length encoding:NSASCIIStringEncoding freeWhenDone:YES];
+    NSStringEncoding encode = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
+
+    return [[NSString alloc] initWithBytesNoCopy:characters length:length encoding:encode freeWhenDone:YES];
 }
 
 @end

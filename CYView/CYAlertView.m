@@ -28,6 +28,50 @@
     return self;
 }
 
+- (void)registerNotification
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardChanged:) name:UIKeyboardWillChangeFrameNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardHidden:) name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)resignNotificaiton
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillChangeFrameNotification object:nil];
+}
+
+- (void)keyboardShow:(NSNotification *)notification
+{
+    NSDictionary *userInfo = [notification userInfo];
+    NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+    CGRect keyboardRect = [aValue CGRectValue];
+    int height = keyboardRect.size.height;
+    CGSize size = [UIApplication sharedApplication].keyWindow.frame.size;
+    _contentView.center = CGPointMake(size.width/2.0, (size.height-height)/2.0);
+}
+
+- (void)keyboardChanged:(NSNotification *)notification
+{
+    NSDictionary *userInfo = [notification userInfo];
+    NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+    CGRect keyboardRect = [aValue CGRectValue];
+    int height = keyboardRect.size.height;
+    CGSize size = [UIApplication sharedApplication].keyWindow.frame.size;
+    _contentView.center = CGPointMake(size.width/2.0, (size.height-height)/2.0);
+}
+
+- (void)keyboardHidden:(NSNotification *)notification
+{
+    NSDictionary *userInfo = [notification userInfo];
+    NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+    CGRect keyboardRect = [aValue CGRectValue];
+    int height = keyboardRect.size.height;
+    CGSize size = [UIApplication sharedApplication].keyWindow.frame.size;
+    _contentView.center = CGPointMake(size.width/2.0, (size.height-height)/2.0);
+}
+
 - (void)setContentView:(UIView *)contentView
 {
     _contentView = contentView;
@@ -44,6 +88,8 @@
 
 - (void)show
 {
+    [self registerNotification];
+
     [[UIApplication sharedApplication].keyWindow addSubview:self];
     
     if (_isHaveAnimation) {
@@ -63,7 +109,7 @@
 
 - (void)hidden
 {
-    [self resignNotification];
+    [self resignNotificaiton];
     
     [_contentView removeFromSuperview];
     [self removeFromSuperview];
