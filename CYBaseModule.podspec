@@ -51,6 +51,7 @@ Pod::Spec.new do |s|
         sss.frameworks='CommonCrypto'
         sss.subspec 'GTMBase64' do |ssss|
             ssss.source_files = "CYModel/CYExtension/GTMBase64/*.{h,m}"
+        end
     end
   end
 
